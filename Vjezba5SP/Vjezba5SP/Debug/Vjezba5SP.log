@@ -1,0 +1,3 @@
+﻿  SP_Zadatak5.c
+c:\users\terox\source\repos\vjezba5sp\vjezba5sp\sp_zadatak5.c(113): warning C4013: 'ispisListi' undefined; assuming extern returning int
+  Vjezba5SP.vcxproj -> C:\Users\terox\source\repos\Vjezba5SP\Debug\Vjezba5SP.exe

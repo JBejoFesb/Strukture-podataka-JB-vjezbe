@@ -1,0 +1,3 @@
+﻿  Zadatak4SP.c
+c:\users\terox\source\repos\vjezba4sp\vjezba4sp\zadatak4sp.c(73): warning C4013: 'ispisListi' undefined; assuming extern returning int
+  Vjezba4SP.vcxproj -> C:\Users\terox\source\repos\Vjezba4SP\Debug\Vjezba4SP.exe

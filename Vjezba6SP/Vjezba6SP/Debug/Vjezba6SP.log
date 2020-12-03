@@ -1,0 +1,4 @@
+﻿  Zadatak6SP.c
+c:\users\terox\source\repos\vjezba6sp\vjezba6sp\zadatak6sp.c(63): warning C4020: 'pushRed': too many actual parameters
+c:\users\terox\source\repos\vjezba6sp\vjezba6sp\zadatak6sp.c(102): warning C4029: declared formal parameter list different from definition
+  Vjezba6SP.vcxproj -> C:\Users\terox\source\repos\Vjezba6SP\Debug\Vjezba6SP.exe

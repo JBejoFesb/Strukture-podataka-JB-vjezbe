@@ -1,0 +1,4 @@
+﻿  Zadatak7SP.c
+c:\users\terox\source\repos\vjezba7sp\vjezba7sp\zadatak7sp.c(58): warning C4013: 'gets' undefined; assuming extern returning int
+c:\users\terox\source\repos\vjezba7sp\vjezba7sp\zadatak7sp.c(155): warning C4047: 'return': 'Position' differs in levels of indirection from 'int'
+  Vjezba7SP.vcxproj -> C:\Users\terox\source\repos\Vjezba7SP\Debug\Vjezba7SP.exe

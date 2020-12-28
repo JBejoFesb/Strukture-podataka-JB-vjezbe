@@ -2,249 +2,296 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
-#define MAX_NAME (256)
-
-struct student;
+#define MAX (256)
 
 typedef struct student *Position;
-
-typedef struct student
-{
-	char firstName[MAX_NAME];
-	char lastName[MAX_NAME];
+typedef struct student {
+	char firstName[MAX];
+	char lastName[MAX];
 	int birthYear;
 	Position next;
-
+	Position prev;
 }Student;
 
-Position stvoriStudent(char*,char*,int);
+Position createStudent(char*, char*, int);
 
-Position traziStudenta(Position,char*);
+Position searchStudent(Position, char*);
 
-int ucitavanjeIzDatoteke(Position,char*);
+int readFromFile(Position, char*);
 
-int ucitavanjeUDatoteku(Position,char*);
+int writeIntoFile(Position, char*);
 
-int sortiraniUnos(Position, Position);
+int sortedAddStudent(Position, Position);
 
-int unosIzaElementa(Position, Position);
+int nameCompare(Position, Position);
 
-int unosIspredElementa(Position, Position);
+int insertAfter(Position, Position);
 
-int ispisStudenata(Position);
+int insertBefore(Position, Position);
 
-int izbrisiStudenta(Position, char*);
+int printList(Position);
+
+int deleteStudent(Position);
+
+int clearMemory(Position);
 
 int main()
 {
-	Student head;
-	head.next = NULL;
-	Position p = NULL;
-	p = malloc(sizeof(Student));
-	char datoteka[MAX_NAME];
-	char novadatoteka[MAX_NAME];
-	char firstname[MAX_NAME];
-	char lastname[MAX_NAME];
+	Position List = NULL;
+	List = (Position)malloc(sizeof(Student));
+	List->next = NULL;
+	List->prev = NULL;
+	Position student = NULL;
+	char readDat[MAX];
+	char writeDat[MAX];
+	char firstname[MAX];
+	char lastname[MAX];
 	int birthyear;
-	int odabir = 1;
-	puts("Dobrodosli u program za unos i upravljanje liste studenata. [Strukture podataka zadatak 2 - Jakov Bejo]\n");
-	while (odabir != 0)
+	int odabir = -1;
+	while (1)
 	{
-		printf("\nPritisnite bilo koju tipku za meni odabira");
-		system("pause > nul");
+		printf("\n Pritisnite bilo koju tipku za nastavak...");
+		system("pause>nul");
 		system("cls");
-		ispisStudenata(&head);
-		puts("Odaberite zeljenu funkciju programa unosom pripadajuceg broja:\n");
-		puts("Unos sortirane liste studenta preko standard inputa-a (1)");
-		puts("Unos sortirane liste studenta preko datoteke (2)");
-		puts("Pretrazivanje po prezimenu (3)");
-		puts("Brisanje elementa iz liste (4)");
-		puts("Ispis liste u datoteku (5)");
-		puts("Izlaz iz programa (0)\n");
-		printf("Vas odabir: ");
+		puts("Program za unos i upravljanje liste studenata [Strukture podataka zadatak 3 - Jakov Bejo]\n");
+		puts(" Odaberite zeljenu funkciju programa unosom pripadajuceg broja:\n");
+		puts("  (1) Unos studenta preko tipkovnice");
+		puts("  (2) Unos liste studenta preko datoteke");
+		puts("  (3) Pretrazivanje studenata po prezimenu");
+		puts("  (4) Brisanje studenta iz liste");
+		puts("  (5) Ispis liste");
+		puts("  (6) Ispis liste u datoteku");
+		puts("  (0) Izlaz iz programa\n");
+		printf(" Vas odabir: ");
 		scanf("%d", &odabir);
 		switch (odabir)
 		{
 		case 1:
-			printf("Unesi ime i prezime studenta: ");	scanf(" %s %s", firstname, lastname);
-			printf("Unesi godinu rodenja studenta: ");	scanf(" %d", &birthyear);
-			p = stvoriStudent(firstname, lastname, birthyear);
-			sortiraniUnos(&head, p);
-			printf("\nStudent uspjesno dodan u listu\n");
+			printf("\n Unesi ime, prezime i godinu rodenja studenta: ");
+			scanf("%s %s %d", firstname, lastname, &birthyear);
+			sortedAddStudent(List, createStudent(firstname, lastname, birthyear));
 			break;
+
 		case 2:
-			puts("Odaberite datoteku iz koje ce se uzeti lista:");
-			scanf("%s", datoteka);
-			ucitavanjeIzDatoteke(&head, datoteka);
+			printf("\n Odaberite datoteku iz koje ce se uzeti lista: ");
+			scanf("%s", readDat);
+			readFromFile(List, readDat);
 			break;
+
 		case 3:
-			printf("Unesite prezime studenta kojeg zelite traziti: ");
+			printf("\n Unesite prezime studenta kojeg zelite traziti: ");
 			scanf(" %s", lastname);
-			p=traziStudenta(&head, lastname);
-			printf("\nStudent: \n%s %s %d\n", p->firstName, p->lastName, p->birthYear);
+			student = searchStudent(List, lastname);
+			if (student != NULL)
+				printf("\n Podaci trazenog studenta:  %s %s %d\n", student->firstName, student->lastName, student->birthYear);
 			break;
+
 		case 4:
-			printf("Unesite prezime studenta kojeg zelite izbrisati: ");
-			scanf(" %s", lastname);
-			izbrisiStudenta(&head, lastname);
+			printf("\n Unesite prezime studenta kojeg zelite izbrisati: ");
+			scanf("%s", lastname);
+			deleteStudent(searchStudent(List, lastname));
 			break;
+
 		case 5:
-			puts("Odaberite datoteku u koje ce se upisati lista:");
-			scanf("%s", novadatoteka);
-			ucitavanjeUDatoteku(&head, novadatoteka);
+			printList(List);
 			break;
+
+		case 6:
+			puts("\n Odaberite datoteku u koje ce se upisati lista: ");
+			scanf("%s", writeDat);
+			writeIntoFile(List, writeDat);
+			break;
+
 		case 0:
+			clearMemory(List);
+			return 0;
+
+		default:
+			puts("\n Unesite ispravnu oznaku funkcije.");
 			break;
 		}
 	}
-	return 0;
 }
 
-Position stvoriStudent(char* firstName, char* lastName, int birthYear)
+Position createStudent(char* firstName, char* lastName, int birthYear)
 {
-	Position stud = NULL;
-	stud = malloc(sizeof(Student));
-	if (NULL == stud)
+	Position student = NULL;
+	student = (Position)malloc(sizeof(Student));
+	if (NULL == student)
 	{
-		perror("Nesto poslo po krivu sa memorijom\n");
+		perror("\n Nesto poslo po krivu sa memorijom\n");
 		return NULL;
 	}
-	strcpy(stud->firstName, firstName);
-	strcpy(stud->lastName, lastName);
-	stud->birthYear = birthYear;
-	return stud;
+	strcpy(student->firstName, firstName);
+	strcpy(student->lastName, lastName);
+	student->birthYear = birthYear;
+	return student;
 }
-int unosIzaElementa(Position prev, Position element)
+
+int insertAfter(Position current, Position element)
 {
-	element->next = prev->next;
-	prev->next = element;
-	return 0;
-}
-int unosIspredElementa(Position head, Position element) {
-	Position prevEle = NULL;
-	Position trenutni = NULL;
-	int prekid = 0;
-	for (prevEle = head, trenutni = head->next; trenutni != NULL; prevEle = prevEle->next, trenutni = trenutni->next)
-	{
-		prekid = strcmp(trenutni->lastName, element->lastName);
-		if (prekid == 0)
-		{
-			unosIzaElementa(prevEle, element);
-			break;
-		}
-	}
+	element->next = current->next;
+	element->prev = current;
+	if (current->next != NULL)
+		current->next->prev = element;
+	current->next = element;
 	return 0;
 }
 
-int sortiraniUnos(Position head, Position element) {
-	Position prevEle = NULL;
-	Position trenutni = NULL;
-	int prekid = 0;
-	for (prevEle = head, trenutni = head->next; trenutni != NULL; prevEle = prevEle->next, trenutni = trenutni->next)
-	{
-		prekid = strcmp(trenutni->lastName,prevEle->lastName);
-		if (prekid < 0)
-		{
-			unosIspredElementa(prevEle, element);
-		}
-		else if (prekid > 0)
-		{
-			unosIzaElementa(prevEle, element);
-		}
-	}
+int insertBefore(Position current, Position element)
+{
+	element->next = current;
+	element->prev = current->prev;
+	if (current->prev != NULL)
+		current->prev->next = element;
+	current->prev = element;
 	return 0;
 }
-Position traziStudenta(Position head, char *lastName)
+
+int sortedAddStudent(Position head, Position element)
 {
-	Position tragac = NULL;
-	int prekid = 0;
-	for (tragac = head->next; tragac != NULL; tragac = tragac->next)
+	Position temp = head;
+	int result;
+	while (temp->next != NULL)
 	{
-		prekid= strcmp(tragac->lastName, lastName);
-		if (prekid == 0)
-			break;
-	}
-	if (NULL == tragac)
-		printf("\nNeuspjesno trazenje studenta\n");
-	return tragac;
-}
-int izbrisiStudenta(Position head, char *lastName)
-{
-	Position prevEle = NULL;
-	Position Element = NULL;
-	int prekid = 0;
-	for (prevEle = head, Element = head->next; Element != NULL; prevEle = prevEle->next, Element = Element->next)
-	{
-		prekid=strcmp(Element->lastName, lastName);
-		if (prekid == 0)
+		temp = temp->next;
+		result = nameCompare(temp, element);
+		if (result == 1)
 		{
-			prevEle->next = Element->next;
-			free(Element);
-			break;
+			insertBefore(temp, element);
+			puts("\n Student uspjesno dodan u listu.\n");
+			return 0;
+		}
+		else if (result == 2)
+		{
+			puts("\n Student vec postoji.\n");
+			return 0;
 		}
 	}
-	if (prekid!= 0)
-		printf("\nNmg nac studenta\n");
+	insertAfter(temp, element);
+	puts("\n Student uspjesno dodan u listu.\n");
+	return 0;
+}
+
+int nameCompare(Position Temp, Position Element)
+{
+	if (strcmp(Temp->lastName, Element->lastName) > 0)
+		return 1;
+	else if (strcmp(Temp->lastName, Element->lastName) < 0)
+		return 0;
 	else
-		printf("\nStudent izbrisan\n");
+	{
+		if (strcmp(Temp->firstName, Element->firstName) > 0)
+			return 1;
+		else if (strcmp(Temp->firstName, Element->firstName) < 0)
+			return 0;
+		else
+			return 2;
+	}
+}
+
+Position searchStudent(Position head, char *lastName)
+{
+	Position temp = head->next;
+	char tempFirstName[MAX];
+	while (temp != NULL)
+	{
+		if (!strcmp(temp->lastName, lastName))
+		{
+			if (temp->next != NULL && !strcmp(temp->lastName, temp->next->lastName))
+			{
+				printf("\n Postoji vise studenata s tim prezimenom, upisite ime studenta: ");
+				scanf("%s", tempFirstName);
+				if (!strcmp(temp->firstName, tempFirstName))
+					return temp;
+				else
+				{
+					temp = temp->next;
+					continue;
+				}
+			}
+			else
+				return temp;
+		}
+		temp = temp->next;
+	}
+	printf("\n Trazeni student ne postoji\n");
+	return NULL;
+}
+
+int deleteStudent(Position temp)
+{
+	if (temp == NULL)
+		return 0;
+	temp->prev->next = temp->next;
+	if (temp->next != NULL)
+		temp->next->prev = temp->prev;
+	free(temp);
+	printf("\n Student uspjesno izbrisan.\n");
 	return 0;
 }
 
-int ispisStudenata(Position head)
+int printList(Position head)
 {
 	Position citac = NULL;
 	citac = head->next;
+	puts("\n Lista studenata:\n");
 	while (citac != NULL)
 	{
-		printf("%s %s %d\n", citac->firstName, citac->lastName, citac->birthYear);
+		printf("  %s %s %d\n", citac->firstName, citac->lastName, citac->birthYear);
 		citac = citac->next;
 	}
 	printf("\n");
 	return 0;
 }
 
-int ucitavanjeIzDatoteke(Position head, char* Datoteka)
+int clearMemory(Position currentNode)
 {
-	char registar[64];
-	Position citac = NULL;
+	if (currentNode == NULL)
+		return 0;
+	clearMemory(currentNode->next);
+	free(currentNode);
+	return 0;
+}
+
+int readFromFile(Position head, char* readFileName)
+{
+	char fName[MAX];
+	char lName[MAX];
+	int bYear;
+
 	FILE *dat;
-	dat = fopen(Datoteka, "r");
+	dat = fopen(readFileName, "r");
 	if (dat == NULL)
 	{
-		perror("Greska u citanju datoteke");
+		perror("\n Greska u citanju datoteke.\n");
 		return(-1);
 	}
 
-	for (citac = head->next; citac != NULL; citac = citac->next)
-	{
-		if ((fscanf(dat, "%[^\n]%*c", registar)) != EOF)
-		{
-			sscanf(registar, "%s %s %d", citac->firstName, citac->lastName, &citac->birthYear);
-			sortiraniUnos(head, citac);
-		}
-	}
-	printf("\nLista upisana iz datoteke\n");
+	while (fscanf(dat, "%s %s %d", fName, lName, &bYear) != EOF)
+		sortedAddStudent(head, createStudent(fName, lName, bYear));
+
+	printf("\n Lista studenata upisana iz datoteke.\n");
 	fclose(dat);
 	return 0;
 }
 
-int ucitavanjeUDatoteku(Position head, char* NovaDatoteka)
+int writeIntoFile(Position head, char* NovaDatoteka)
 {
-	Position pisac = NULL;
+	Position writer = NULL;
+
 	FILE *dat;
 	dat = fopen(NovaDatoteka, "w");
 	if (dat == NULL)
 	{
-		perror("Greska u citanju datoteke");
+		perror("\n Greska u citanju datoteke.\n");
 		return(-1);
 	}
 
-	for (pisac = head->next; pisac != NULL; pisac = pisac->next)
-	{
-		fprintf(dat, "%s %s %d\n", pisac->firstName, pisac->lastName, pisac->birthYear);
-	}
-	printf("\nLista upisana u novu datoteku\n");
+	for (writer = head->next; writer != NULL; writer = writer->next)
+		fprintf(dat, "%s %s %d\n", writer->firstName, writer->lastName, writer->birthYear);
+
+	printf("\n Lista upisana u novu datoteku\n");
 	fclose(dat);
 	return 0;
 }

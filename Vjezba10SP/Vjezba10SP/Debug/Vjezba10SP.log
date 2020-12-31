@@ -1,0 +1,18 @@
+﻿  Zadatak10SP.c
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(80): warning C4013: 'cleanMemory' undefined; assuming extern returning int
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(100): warning C4013: 'gets' undefined; assuming extern returning int
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(135): warning C4133: 'function': incompatible types - from 'PositionS' to 'Position'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(135): warning C4133: 'function': incompatible types - from 'Position' to 'PositionS'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(141): warning C4133: 'function': incompatible types - from 'PositionS' to 'Position'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(141): warning C4133: 'function': incompatible types - from 'Position' to 'PositionS'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(147): warning C4133: 'function': incompatible types - from 'PositionS' to 'Position'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(147): warning C4133: 'function': incompatible types - from 'Position' to 'PositionS'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(153): warning C4133: 'function': incompatible types - from 'PositionS' to 'Position'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(153): warning C4133: 'function': incompatible types - from 'Position' to 'PositionS'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(159): warning C4133: 'function': incompatible types - from 'PositionS' to 'Position'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(159): warning C4133: 'function': incompatible types - from 'Position' to 'PositionS'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(209): warning C4133: 'function': incompatible types - from 'Position' to 'PositionS'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(210): warning C4133: 'function': incompatible types - from 'Position' to 'PositionS'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(214): warning C4133: 'return': incompatible types - from 'PositionS' to 'Position'
+c:\users\terox\documents\strukture-podataka-jb-vjezbe\vjezba10sp\vjezba10sp\zadatak10sp.c(242): warning C4029: declared formal parameter list different from definition
+  Vjezba10SP.vcxproj -> C:\Users\terox\Documents\Strukture-podataka-JB-vjezbe\Vjezba10SP\Debug\Vjezba10SP.exe

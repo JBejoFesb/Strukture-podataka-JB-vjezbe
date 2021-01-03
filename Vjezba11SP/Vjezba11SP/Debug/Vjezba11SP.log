@@ -1,0 +1,12 @@
+﻿  Zadatak11SP.c
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(41): warning C4047: 'function': 'Position' differs in levels of indirection from 'Position [11]'
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(41): warning C4024: 'initHashTable': different types for formal and actual parameter 1
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(50): warning C4047: 'function': 'Position' differs in levels of indirection from 'Position [11]'
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(50): warning C4024: 'printHashTable': different types for formal and actual parameter 1
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(61): warning C4047: 'function': 'Position' differs in levels of indirection from 'Position [11]'
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(61): warning C4024: 'stdInput': different types for formal and actual parameter 1
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(65): warning C4013: 'readFromFile' undefined; assuming extern returning int
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(89): warning C4028: formal parameter 1 different from declaration
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(194): warning C4028: formal parameter 1 different from declaration
+c:\users\terox\source\repos\vjezba11sp\vjezba11sp\zadatak11sp.c(233): warning C4028: formal parameter 1 different from declaration
+  Vjezba11SP.vcxproj -> C:\Users\terox\source\repos\Vjezba11SP\Debug\Vjezba11SP.exe

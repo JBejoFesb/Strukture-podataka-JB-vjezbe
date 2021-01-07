@@ -22,7 +22,11 @@ Position searchMax(Position);
 
 Position deleteTreeNode(Position,int);
 
-int printTree(Position);
+int printTreeInOrder(Position);
+
+int printTreePreOrder(Position);
+
+int printTreePostOrder(Position);
 
 int cleanMemory(Position);
 
@@ -43,7 +47,9 @@ int main()
 		puts("  (3)Trazenje najmanjeg elementa u stablu");
 		puts("  (4)Trazenje najveceg elementa u stablu");
 		puts("  (5)Brisanje odredenog elementa iz stabla");
-		puts("  (6)Ispis binarnog stabla");
+		puts("  (6)Ispis binarnog stabla InOrder");
+		puts("  (6)Ispis binarnog stabla PreOrder");
+		puts("  (7)Ispis binarnog stabla PostOrder");
 		puts("  (0)Izlaz iz programa");
 		printf("\n Vas odabir: ");
 		scanf("%d", &choice);
@@ -101,8 +107,20 @@ int main()
 			break;
 
 		case 6:
-			printf("\n Binarno stablo trenutno sadrzi:\n\n");
-			printTree(Root);
+			printf("\n Binarno stablo trenutno sadrzi (InOrder):\n\n");
+			printTreeInOrder(Root);
+			printf("\n");
+			break;
+
+		case 7:
+			printf("\n Binarno stablo trenutno sadrzi: (PreOrder)\n\n");
+			printTreePreOrder(Root);
+			printf("\n");
+			break;
+
+		case 8:
+			printf("\n Binarno stablo trenutno sadrzi: (PostOrder)\n\n");
+			printTreePostOrder(Root);
 			printf("\n");
 			break;
 
@@ -121,6 +139,11 @@ Position createTreeNode(int Number)
 {
 	Position Node = NULL;
 	Node = malloc(sizeof(Tree));
+	if (NULL == Node)
+	{
+		perror("\n Nesto je poslo krivo sa alokacijom memorije\n");
+		return NULL;
+	}
 	Node->number = Number;
 	Node->left = NULL;
 	Node->right = NULL;
@@ -196,13 +219,33 @@ Position deleteTreeNode(Position treeNode, int x)
 	return treeNode;
 }
 
-int printTree(Position treeNode)
+int printTreeInOrder(Position treeNode)
 {
 	if (treeNode == NULL)
 		return 0;
-	printTree(treeNode->left);
+	printTreeInOrder(treeNode->left);
 	printf(" %d", treeNode->number);
-	printTree(treeNode->right);
+	printTreeInOrder(treeNode->right);
+	return 0;
+}
+
+int printTreePreOrder(Position treeNode)
+{
+	if (treeNode == NULL)
+		return 0;
+	printf(" %d", treeNode->number);
+	printTreePreOrder(treeNode->left);
+	printTreePreOrder(treeNode->right);
+	return 0;
+}
+
+int printTreePostOrder(Position treeNode)
+{
+	if (treeNode == NULL)
+		return 0;
+	printTreePostOrder(treeNode->left);
+	printTreePostOrder(treeNode->right);
+	printf(" %d", treeNode->number);
 	return 0;
 }
 

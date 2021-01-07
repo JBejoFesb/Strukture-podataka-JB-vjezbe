@@ -189,6 +189,18 @@ PositionS createOperandNode(char* Element)
 	treeNode = malloc(sizeof(Tree));
 	stackNode = malloc(sizeof(Stack));
 
+	if (NULL == treeNode)
+	{
+		perror("Nesto je poslo krivo sa alokacijom memorije\n");
+		return NULL;
+	}
+
+	if (NULL == stackNode)
+	{
+		perror("Nesto je poslo krivo sa alokacijom memorije\n");
+		return NULL;
+	}
+
 	strcpy(treeNode->element, Element);
 	treeNode->right = NULL;
 	treeNode->left = NULL;
@@ -204,6 +216,18 @@ Position createOperatorNode(Position stack,char* Element)
 	PositionS stackNode = NULL;
 	treeNode = malloc(sizeof(Tree));
 	stackNode = malloc(sizeof(Stack));
+
+	if (NULL == treeNode)
+	{
+		perror("Nesto je poslo krivo sa alokacijom memorije\n");
+		return NULL;
+	}
+
+	if (NULL == stackNode)
+	{
+		perror("Nesto je poslo krivo sa alokacijom memorije\n");
+		return NULL;
+	}
 
 	strcpy(treeNode->element, Element);
 	treeNode->right = pop(stack);

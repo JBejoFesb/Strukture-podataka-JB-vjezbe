@@ -33,7 +33,7 @@ int idFind(Position, char*, char*);
 
 int stdInput(Position);
 
-int ReadFromFile(Position, char*);
+int readFromFile(Position*, char*);
 
 int main()
 {
@@ -243,7 +243,7 @@ int stdInput(Position HashTable[])
 	return 0;
 }
 
-int readFromFile(Position HashTable[], char* readFileName)
+int readFromFile(Position* HashTable, char* readFileName)
 {
 	char fName[MAX];
 	char lName[MAX];
